@@ -12,7 +12,7 @@ C'est un projet personnel. J'avais accumulé beaucoup de scripts d'optimisation,
 
 ## État du projet
 
-En construction. Le logiciel est utilisable, mais il n'est pas fini et ce n'est pas le but : je continue d'ajouter des tweaks, de renommer des entrées et d'améliorer l'interface au fur et à mesure. Il va donc continuer d'évoluer.
+En construction. L'interface graphique est en place : la liste des fichiers s'affiche en cases à cocher et le bouton lance les éléments sélectionnés. L'exécution est encore synchrone, la fenêtre se fige donc pendant le traitement — le passage en thread arrive ensuite.
 
 ## Ce qu'il fait
 
