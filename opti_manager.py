@@ -3,6 +3,8 @@ import subprocess
 import ctypes
 import sys
 import tempfile
+import tkinter as tk
+from tkinter import messagebox
 
 # Dossier courant : le script parcourt son propre repertoire
 DOSSIER = os.path.dirname(os.path.abspath(__file__))
@@ -59,21 +61,54 @@ def appliquer(chemin):
                        timeout=15)
         os.remove(tmp.name)
 
-if __name__ == '__main__':
-    if not est_admin():
-        print("Droits administrateur requis, relancement...")
-        relancer_admin()
-
-    reg_files, bat_files = scanner()
-    fichiers = reg_files + bat_files
-    print(f"{len(reg_files)} fichiers .reg et {len(bat_files)} scripts trouves.\n")
-
-    for i, chemin in enumerate(fichiers, 1):
-        print(f"({i}/{len(fichiers)})  {os.path.basename(chemin)}")
+def lancer():
+    selectionnes = [c for c, var in cases if var.get()]
+    if not selectionnes:
+        messagebox.showinfo("Info", "Aucun element selectionne.")
+        return
+    btn.config(state="disabled", text="En cours...")
+    fenetre.update()
+    for chemin in selectionnes:
         try:
             appliquer(chemin)
         except Exception:
             pass
+    btn.config(state="normal", text="OPTIMISER MON PC")
+    messagebox.showinfo("Termine", "Optimisation terminee !")
 
-    print("\nOptimisation terminee.")
-    input("Appuyez sur Entree pour fermer...")
+if not est_admin():
+    res = ctypes.windll.user32.MessageBoxW(0,
+        "Relancer en administrateur ? (necessaire pour les .reg)",
+        "Droits requis", 0x24)
+    if res == 6: relancer_admin()
+    sys.exit()
+
+# --- Interface ---
+fenetre = tk.Tk()
+fenetre.title("PACK OPTI")
+fenetre.geometry("620x680")
+fenetre.configure(bg="#f0f0f0")
+fenetre.resizable(False, False)
+
+tk.Label(fenetre, text="PACK OPTI - Optimisation PC",
+         font=("Arial", 16, "bold"), bg="#f0f0f0").pack(pady=10)
+
+cadre_liste = tk.Frame(fenetre, bg="#f0f0f0")
+cadre_liste.pack(fill="both", expand=True, padx=15)
+
+cases = []
+reg_files, bat_files = scanner()
+for chemin in reg_files + bat_files:
+    var = tk.BooleanVar(value=True)
+    cases.append((chemin, var))
+    tk.Checkbutton(cadre_liste, text=os.path.basename(chemin),
+                   variable=var, bg="#f0f0f0", anchor="w",
+                   font=("Arial", 9), wraplength=530
+                   ).pack(fill="x", padx=8, pady=0)
+
+btn = tk.Button(fenetre, text="OPTIMISER MON PC",
+                font=("Arial", 13, "bold"), bg="green", fg="white",
+                padx=20, pady=10, command=lancer)
+btn.pack(pady=10)
+
+fenetre.mainloop()
