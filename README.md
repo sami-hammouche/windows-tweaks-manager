@@ -12,7 +12,7 @@ C'est un projet personnel. J'avais accumulé beaucoup de scripts d'optimisation,
 
 ## État du projet
 
-En construction. L'interface graphique est en place : la liste des fichiers s'affiche en cases à cocher et le bouton lance les éléments sélectionnés. L'exécution est encore synchrone, la fenêtre se fige donc pendant le traitement — le passage en thread arrive ensuite.
+En construction. Le traitement tourne maintenant dans un thread, avec une barre de progression et le nom de l'élément en cours : la fenêtre reste utilisable pendant l'exécution. Il reste à donner un nom lisible à chaque fichier, au lieu d'afficher le nom brut.
 
 ## Ce qu'il fait
 
