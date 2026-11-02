@@ -12,7 +12,7 @@ C'est un projet personnel. J'avais accumulé beaucoup de scripts d'optimisation,
 
 ## État du projet
 
-En construction. Le traitement tourne maintenant dans un thread, avec une barre de progression et le nom de l'élément en cours : la fenêtre reste utilisable pendant l'exécution. Il reste à donner un nom lisible à chaque fichier, au lieu d'afficher le nom brut.
+En construction. Le logiciel est utilisable, mais il n'est pas fini et ce n'est pas le but : je continue d'ajouter des tweaks, de renommer des entrées et d'améliorer l'interface au fur et à mesure. Il va donc continuer d'évoluer.
 
 ## Ce qu'il fait
 
